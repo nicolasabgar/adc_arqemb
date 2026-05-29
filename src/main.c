@@ -34,6 +34,9 @@ int main(void)
 
     FGPIOD->PDDR |= (1 << 1); // Definir direcao de saida
 
+    PORTB->PCR[19] |= (1 << 8); // Configurar MUX do GPIO
+
+    FGPIOB->PDDR |= (1 << 19); // Definir direcao de saida
     
 
     // Loop infinito
@@ -51,8 +54,10 @@ int main(void)
 
         if (result > 512) {
             GPIOD->PCOR |= (1 << 1);
+            GPIOB->PSOR |= (1 << 19);
         } else {
             GPIOD->PSOR |= (1 << 1);
+            GPIOB->PCOR |= (1 << 19);
         }
 
         printk("Valor: %d \n", result);
